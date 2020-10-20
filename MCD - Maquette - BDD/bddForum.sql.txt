@@ -1,0 +1,105 @@
+-- --------------------------------------------------------
+-- Hôte :                        localhost
+-- Version du serveur:           5.7.24 - MySQL Community Server (GPL)
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Listage de la structure de la base pour forum
+DROP DATABASE IF EXISTS `forum`;
+CREATE DATABASE IF NOT EXISTS `forum` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `forum`;
+
+-- Listage de la structure de la table forum. categorie
+DROP TABLE IF EXISTS `categorie`;
+CREATE TABLE IF NOT EXISTS `categorie` (
+  `id_categorie` int(11) NOT NULL AUTO_INCREMENT,
+  `nomcategorie` varchar(50) NOT NULL,
+  `descriptioncat` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_categorie`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- Listage des données de la table forum.categorie : ~4 rows (environ)
+/*!40000 ALTER TABLE `categorie` DISABLE KEYS */;
+INSERT INTO `categorie` (`id_categorie`, `nomcategorie`, `descriptioncat`) VALUES
+	(1, 'Quete Principal ', 'Bloque dans votre avance des quetes Principal ? Cette categorie est faites pour vous. '),
+	(2, 'Quete Secondaire ', 'Bloque dans votre avance des quete Secondaire ? Vous etes fait pour cette categorie. '),
+	(3, 'Ressources ', 'Besoin de farmer des ressources d\'artisanat comme un boss ? Tout se passse ici jeune eboueur des Wastlands !'),
+	(4, 'Equipement ', 'Forger fait le forgeron, mais c\'est avec la bonne forge qu\'on le deviens. '),
+	(5, 'Bug ', 'It\'s simply work ');
+/*!40000 ALTER TABLE `categorie` ENABLE KEYS */;
+
+-- Listage de la structure de la table forum. post
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE IF NOT EXISTS `post` (
+  `id_post` int(11) NOT NULL AUTO_INCREMENT,
+  `contenupost` varchar(50) NOT NULL,
+  `datepublication` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  PRIMARY KEY (`id_post`),
+  KEY `FK_message_utilisateur` (`user_id`),
+  KEY `FK_message_topic` (`topic_id`),
+  CONSTRAINT `FK_message_topic` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`),
+  CONSTRAINT `FK_message_utilisateur` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Listage des données de la table forum.post : ~1 rows (environ)
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` (`id_post`, `contenupost`, `datepublication`, `user_id`, `topic_id`) VALUES
+	(1, 'Contenu Post 1 ', '2020-10-16 11:16:44', 1, 1);
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+
+-- Listage de la structure de la table forum. topic
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE IF NOT EXISTS `topic` (
+  `id_topic` int(11) NOT NULL AUTO_INCREMENT,
+  `intitule` varchar(50) NOT NULL,
+  `statut` tinyint(1) NOT NULL,
+  `datecreation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `contenu` text NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id_topic`),
+  KEY `FK_topic_categorie` (`category_id`),
+  KEY `FK_topic_utilisateur` (`user_id`),
+  CONSTRAINT `FK_topic_categorie` FOREIGN KEY (`category_id`) REFERENCES `categorie` (`id_categorie`),
+  CONSTRAINT `FK_topic_utilisateur` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Listage des données de la table forum.topic : ~1 rows (environ)
+/*!40000 ALTER TABLE `topic` DISABLE KEYS */;
+INSERT INTO `topic` (`id_topic`, `intitule`, `statut`, `datecreation`, `contenu`, `category_id`, `user_id`) VALUES
+	(1, 'Pip-Boy non utilisable ', 0, '2020-10-14 14:29:16', 'loreum ipseum ', 5, 1),
+	(2, 'Impossible de récuperer mon stuff ', 0, '2020-10-20 08:58:23', 'loreum ipseum', 4, 1);
+/*!40000 ALTER TABLE `topic` ENABLE KEYS */;
+
+-- Listage de la structure de la table forum. utilisateur
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `role` varchar(50) DEFAULT NULL,
+  `mdp` varchar(10) DEFAULT NULL,
+  `pseudo` varchar(18) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `dateinscription` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Listage des données de la table forum.utilisateur : ~1 rows (environ)
+/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+INSERT INTO `utilisateur` (`id_user`, `email`, `role`, `mdp`, `pseudo`, `avatar`, `dateinscription`) VALUES
+	(1, 'harlem.sawn@gmail.com', 'Admin', 'pmd945586@', 'User_test', 'https://staticdelivery.nexusmods.com/mods/1151/images/thumbnails/44148/44148-1585561295-399041543.png', '2020-10-08 16:31:30');
+/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
