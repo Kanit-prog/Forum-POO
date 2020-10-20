@@ -31,7 +31,10 @@ class Topic extends AbstractEntity {
         return $this;
     }
 
-    public function getIntitule()    {     return $this->intitule;    }
+    public function getIntitule()
+    {
+        return $this->intitule;
+    }
  
     public function setIntitule($intitule)
     {
