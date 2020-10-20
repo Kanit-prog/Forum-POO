@@ -1,0 +1,149 @@
+// Préparer les informations pour la création / la connexion d'un utilisateur
+
+"new dao etc"
+
+
+    // Créer un nouvel utilisateur :
+
+        INSERT INTO utilisateur (email, role, mdp, pseudo, avatar, dateinscription)
+	        VALUES
+	        ('john@gmail.com','récupérateur', 'notagoodpassword1234', 'john_doe', 'url', '2020-10-08 16:31:30');
+
+    // Supprimer un utilisateur (mon profil ou admin)
+
+        DELETE FROM utilisateur
+        WHERE id_user = "insert the correct number of id"
+
+    // Afficher les infos d'un utilisateur
+
+        SELECT *
+        FROM utilisateur
+        WHERE id_user = "insert the correct number of id"
+
+    // Liste des utilisateurs, avec rôle respectifs
+
+        SELECT pseudo, role
+        FROM utilisateur u
+
+    // Afficher la liste des utilisateurs avec nombre de sujets + ids   
+
+        SELECT pseudo, id_user, COUNT(id_topic)
+        FROM utilisateur u, topic t
+        WHERE u.id_user = t.user_id 
+
+    // Afficher la liste des utilisateurs avec nombre de messages + ids
+
+        SELECT pseudo, id_user, COUNT(id_message)
+        FROM utilisateur u, message m
+        WHERE u.id_user = m.user_id 
+
+    // Compter les réponses pour un sujet
+
+        SELECT id_topic, COUNT(id_message)
+        FROM topic t, message m
+        WHERE t.id_topic = m.topic_id
+	    AND id_topic = "insert the correct number of id"
+
+    // Afficher les sujets d'un utilisateur (ids_sujets)
+
+        SELECT id_user, COUNT(id_topic)
+        FROM topic t, utilisateur u
+        WHERE u.id_user = t.user_id
+	    AND id_user = "insert the correct number of id"
+
+    // Afficher les messages d'un utilisateur (ids_messages)
+
+        SELECT id_user, COUNT(id_message)
+        FROM message m, utilisateur u
+        WHERE u.id_user = m.user_id
+		AND id_user = "insert the correct number of id"
+
+    // Créer un nouveau sujet
+
+        INSERT INTO topic(intitule, statut, contenu, categorie_id, user_id)
+        VALUES ('Test','1','Test','0','0')
+
+    // Créer un nouveau message
+
+        INSERT INTO message(contenu, user_id, topic_id)
+        VALUES ('Test','0','0')
+
+    // Éditer un sujet (titre)
+
+        UPDATE topic
+        SET intitule = 'test'
+        WHERE id_topic = "insert the correct number of id"
+
+    // Éditer un message (texte)
+
+        UPDATE message
+        SET contenu = 'test'
+        WHERE id_message = "insert the correct number of id"
+
+    // Supprimer un sujet
+
+        DELETE FROM topic
+        WHERE id_topic = "insert the correct number of id"
+
+    // Supprimer un message
+   
+        DELETE FROM message
+        WHERE id_message = "insert the correct number of id"
+
+// Afficher tous les sujets, le nombre de réponses, les messages, le premier message
+    - Erreur message. "contenu" is ambiguous
+
+        SELECT intitule, id_message, contenu
+            FROM message m, topic t
+            WHERE m.topic_id = t.id_topic
+
+    // Afficher la liste des catégories
+
+        SELECT nomcategorie
+        FROM categorie c
+
+    // Afficher un sujet => View Page sujet
+
+        SELECT intitule
+            FROM topic t
+            WHERE id_topic = 1
+
+    // Afficher le nb de sujets dans une catégories
+
+        SELECT intitule, nomcategorie
+            FROM topic t, categorie c
+            WHERE t.categorie_id = c.id_categorie
+            AND id_categorie = 
+
+    // Afficher un sujet => View Page sujet
+    
+        SELECT intitule
+            FROM topic t
+            WHERE id_topic =
+
+// Afficher tous les sujets (auteur, date, est_resolu, est_verrouille, description, nbReponses)
+
+// Afficher un sujet (auteur, date, est_resolu, est_verrouille, description, nbReponses) => View Liste des sujets
+
+    // Afficher tous les messages d'un sujet => View Page sujet
+
+        SELECT contenu, intitule
+            FROM message m, topic t
+            WHERE m.topic_id = t.id_topic
+            AND id_topic = 
+
+    // Afficher les 10 derniers membres inscrits
+
+        SELECT * FROM utilisateur ORDER BY id_user DESC LIMIT 10
+
+    //Afficher les sujets les plus récents
+        SELECT * FROM topic ORDER BY id_topic DESC LIMIT 5
+
+    //Afficher les 10 sujets les plus populaires (en fonction du nb de messages)
+
+        
+
+
+
+
+

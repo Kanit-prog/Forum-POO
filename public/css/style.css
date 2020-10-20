@@ -1,0 +1,128 @@
+/*  */
+
+
+/* ----- HEADER ------ */
+
+
+/* NAV */
+
+header {
+    font-family: 'Oswald', sans-serif;
+    background-color: #bdbdbd70;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+header a {
+    text-decoration: none;
+    color: black;
+    margin: 10px;
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: start;
+}
+
+header li {
+    display: flex;
+    justify-content: start;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+/* .avatar_header {
+    position: relative;
+    display: inline-block;
+} */
+
+.avatar_header img {
+    width: 77px;
+    border: 1px solid #0000006b;
+    border-radius: 4px;
+}
+
+.avatar_header p {
+    
+    text-align: center;
+    margin: 3px;
+    background: white;
+    border-radius: 10px;
+
+}
+
+#header_all {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#header_all input {
+    border: 0;
+    padding: 0 35px;
+    margin-top: 62px;
+    margin-bottom: 62px;
+    font-size: 0.9em;
+}
+
+.register_p p {
+
+}
+
+
+
+/* ----- MAIN ------ */
+
+main {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+
+/* CATEGORY */
+
+.list-group a {
+    text-decoration: none;
+    color: rgb(230, 178, 6);
+}
+
+table.table-cat a {
+    text-decoration: none;
+    color: rgb(230, 178, 6);
+}
+
+
+/* LOG */
+
+.container_log {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* ----- FOOTER ------ */
+
+
+/* ALL */
+
+#footer_all {
+    font-family: 'Oswald', sans-serif;
+    font-size: large;
+    text-align: center;
+}
+
+
+/* P */
+
+
+/* A HREF */
