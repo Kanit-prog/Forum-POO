@@ -27,7 +27,7 @@
                 </ul>
             </div>
 
-            <input onclick="location.href = 'view/forum/log.php';" type="button" value="Connexion">
+            <input onclick="location.href = '?ctrl=security&method=login';" type="button" value="Connexion">
 
             <input onclick="location.href = 'view/forum/register.php';" type="button" value="S'inscrire">
 
