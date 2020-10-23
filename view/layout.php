@@ -29,7 +29,7 @@
 
             <input onclick="location.href = '?ctrl=security&method=login';" type="button" value="Connexion">
 
-            <input onclick="location.href = 'view/forum/register.php';" type="button" value="S'inscrire">
+            <input onclick="location.href = '?ctrl=security&method=register';" type="button" value="S'inscrire">
 
             <div class="register_p">
 
