@@ -3,11 +3,11 @@
     <h1>Connexion</h1>
 
     <div class="container_log">
-      <label for="pseudo"><b>Pseudo ou Email</b></label>
-      <input type="text" placeholder="Pseudo / Email" name="pseudo" required>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="email" name="email" required>
 
       <label for="psw"><b>Mot de passe</b></label>
-      <input type="password" placeholder="Mot de passe" name="psw" required>
+      <input type="password" placeholder="Mot de passe" name="mdp" required>
 
       <input type="submit">Se connecter</input>
       <label>

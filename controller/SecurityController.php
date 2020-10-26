@@ -3,6 +3,7 @@
 namespace Controller;
 
 use App\Router;
+use BadFunctionCallException;
 use Model\Manager\UserManager;
 
 class SecurityController
@@ -39,7 +40,7 @@ class SecurityController
     public function addUser()
     {
         //Récupérer les infos de $_POST
-        var_dump($_POST);
+        // var_dump($_POST);
         // die;
 
         foreach ($_POST as $key => $val) {
@@ -58,7 +59,9 @@ class SecurityController
         // }
 
         //Nettoyage du pseudo
-        $pseudonyme = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
+        $pseudonyme = filter_input(INPUT_POST, 'pseudonyme', FILTER_SANITIZE_STRING);
+        //INPUT_POST récupère le name de l'input ciblé
+        // var_dump($pseudonyme);
         // if(!$pseudonyme){
         //     var_dump($pseudonyme);
         //     die;
@@ -66,25 +69,25 @@ class SecurityController
 
 
         //Vérifier si l'utilisateur existe déjà
-            //Initialiser le manager -> findByEmail
-            $utilisateurManager = new UserManager();
-            //Si l'email de l'utilisateur existe déjà alors..  
-            if ($utilisateurManager->findByEmail($email)){
-                var_dump($utilisateurManager->findByEmail($email));
-                die;
-            }
-            //Si le mot de passe de l'utilisateur existe alors.. 
-            if ($utilisateurManager->findByPseudo($pseudonyme)){
-                var_dump($utilisateurManager->findByPseudo($pseudonyme));
-                die;
-            }
-            var_dump($pseudonyme);
+        //Initialiser le manager -> findByEmail
+        $utilisateurManager = new UserManager();
+        //Si l'email de l'utilisateur existe déjà alors..  
+        if ($utilisateurManager->findByEmail($email)) {
+            var_dump($utilisateurManager->findByEmail($email));
+            die;
+        }
+        //Si le mot de passe de l'utilisateur existe alors.. 
+        if ($utilisateurManager->findByPseudo($pseudonyme)) {
+            var_dump($utilisateurManager->findByPseudo($pseudonyme));
+            die;
+        }
 
-        if(!$email){
+
+        if (!$email) {
             var_dump($email);
             die;
         }
-        if($mdp !== $mdp2 && strlen($mdp < 8)){
+        if ($mdp !== $mdp2 && strlen($mdp < 8)) {
             //!== : si $mdp est différent de $mdp2 ou bien s'ils ne sont pas du même type 
             var_dump($mdp, $mdp2);
             die;
@@ -99,11 +102,44 @@ class SecurityController
         ];
         $utilisateurManager->addUser($params);
 
-        
+        var_dump($utilisateurManager->addUser($params));
 
-        var_dump($_POST);
+        // var_dump($_POST);
         //Initialise un manager et lance la méthode pour la requête
 
-        //Return une vue avec un message (succès ou erreur )
+        //Return une vue avec un message (succès ou erreur)
+
+        // return {
+        //     "view"
+        // }
+    }
+    public function connectUser()
+    {
+        if (isset($_POST['email']) && isset($_POST['mdp'])) {
+            //si $_POST (post = formulaire) retourne une valeur dans le tableau des input email et mdp
+            $email = htmlspecialchars($_POST['email']);
+            //$email = enlever les caractères spéciaux de la valeur du tableau email 
+            $mdp = htmlspecialchars($_POST['mdp']);
+            //$mdp = enlever les caractères spéciaux de la valeur du tableau mdp 
+
+            $check = $bdd->prepare('SELECT pseudo, email, mdp FROM utilisateur WHERE email = :email');
+            //je place cette requête qui sera répertorié dans mon UserController dans une variable appellé $check
+            $check->execute(array($email));
+            $data = $check->fetch();
+            //je récupère la ligne qui représente le résultat de $email et l'assigne à $data
+            $row = $check->rowCount();
+            //je compte cette ligne et j'assigne cette valeur à $row
+
+            if ($row == 1) {
+                //si ligne = 1, donc si il y à une ligne 
+                if (filter_var($email, FILTER_VALIDATE_EMAIL))  
+                //je prends $email et je lui applique FILTER_VALIDATE_EMAIL
+                    {
+                        $mdp = hash('sha256', $mdp);
+                        
+                        if($data['mdp'] === $mdp)
+                    }
+            }
+        } // else header('Location:index.php')
     }
 }
