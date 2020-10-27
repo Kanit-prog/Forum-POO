@@ -1,4 +1,4 @@
-  <form action="?ctrl=security&method=verifyUser" method="post">
+  <form action="?ctrl=security&method=connectUser" method="post">
 
     <h1>Connexion</h1>
 

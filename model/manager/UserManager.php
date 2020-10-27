@@ -81,4 +81,17 @@ class UserManager extends AbstractManager
             $array
         );
     }
+
+    public function findUserbyEmail($array){
+        $sql = "SELECT *
+                FROM utilisateur
+                WHERE email = :email";
+            return self::getOneOrNullResult(
+                self::select($sql,
+                    $array,
+                    false
+                ),
+                self::$classname
+            );
+    }
 }
